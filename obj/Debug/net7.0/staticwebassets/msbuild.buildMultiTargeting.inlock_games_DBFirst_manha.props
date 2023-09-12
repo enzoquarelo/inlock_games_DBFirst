@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\inlock_games_DBFirst_manha.props" />
+</Project>
