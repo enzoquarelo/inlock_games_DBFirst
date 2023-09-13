@@ -1,6 +1,7 @@
 ﻿using inlock_games_DBFirst_manha.Contexts;
 using inlock_games_DBFirst_manha.Domains;
 using inlock_games_DBFirst_manha.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace inlock_games_DBFirst_manha.Repositories
 {
@@ -15,7 +16,7 @@ namespace inlock_games_DBFirst_manha.Repositories
 
         public Estudio BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return ctx.Estudios.FirstOrDefault(e => e.IdEstudio == id)!;
         }
 
         public void Cadastrar(Estudio estudio)
@@ -31,6 +32,11 @@ namespace inlock_games_DBFirst_manha.Repositories
         public List<Estudio> Listar()
         {
             return ctx.Estudios.ToList();
+        }
+
+        public List<Estudio> ListarComJogos()
+        {
+            return ctx.Estudios.Include(e => e.Jogos).ToList();
         }
     }
 }

@@ -1,18 +1,18 @@
 ﻿using inlock_games_DBFirst_manha.Interfaces;
 using inlock_games_DBFirst_manha.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace inlock_games_DBFirst_manha.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Produces("aplication/json")]
-
-    public class EstudioController : Controller
+    [Produces("application/json")]
+    public class EstudioController : ControllerBase
     {
-        private IEstudioRepository _estudiorepository { get; set; } 
+        private IEstudioRepository _estudiorepository { get; set; }
 
-        public EstudioController() 
+        public EstudioController()
         {
             _estudiorepository = new EstudioRepository();
         }
@@ -24,7 +24,33 @@ namespace inlock_games_DBFirst_manha.Controllers
             {
                 return Ok(_estudiorepository.Listar());
             }
-            catch
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+        }
+
+        [HttpGet("ListarComJogos")]
+        public IActionResult GetWithGames()
+        {
+            try
+            {
+                return Ok(_estudiorepository.ListarComJogos());
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(erro.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(Guid id) 
+        {
+            try
+            {
+                return Ok(_estudiorepository.BuscarPorId(id));
+            }
+            catch (Exception erro) 
             {
                 return BadRequest(erro.Message);
             }

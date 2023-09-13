@@ -14,5 +14,7 @@ namespace inlock_games_DBFirst_manha.Interfaces
 
         void Deletar(Guid id);
 
+        List<Estudio> ListarComJogos();
+
     }
 }
