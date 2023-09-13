@@ -11,7 +11,17 @@ namespace inlock_games_DBFirst_manha.Repositories
 
         public void Atualizar(Guid id, Estudio estudio)
         {
-            throw new NotImplementedException();
+            Estudio estudioBuscado = ctx.Estudios.Find(id);
+
+            if(estudioBuscado == null ) 
+            {
+                estudioBuscado.Nome = estudio.Nome;
+            }
+
+            ctx.Estudios.Update(estudioBuscado!);
+
+            ctx.SaveChanges();
+
         }
 
         public Estudio BuscarPorId(Guid id)
@@ -21,12 +31,20 @@ namespace inlock_games_DBFirst_manha.Repositories
 
         public void Cadastrar(Estudio estudio)
         {
-            throw new NotImplementedException();
+            estudio.IdEstudio = Guid.NewGuid();
+
+            ctx.Estudios.Add(estudio);
+
+            ctx.SaveChanges();
         }
 
         public void Deletar(Guid id)
         {
-            throw new NotImplementedException();
+            Estudio estudioBuscado = ctx.Estudios.Find(id);
+
+            ctx.Estudios.Remove(estudioBuscado);
+
+            ctx.SaveChanges();
         }
 
         public List<Estudio> Listar()
